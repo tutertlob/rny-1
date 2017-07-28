@@ -1,0 +1,27 @@
+{
+  "name": "line_notifier",
+  "version": "0.0.1",
+  "description": "Notify a message to LineBot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tutertlob/rny-1.git"
+  },
+  "keywords": [
+    "Line"
+  ],
+  "author": "nobunaga",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/tutertlob/rny-1/issues"
+  },
+  "homepage": "https://github.com/tutertlob/rny-1#readme",
+
+  "dependencies": {
+    "@line/bot-sdk": "*",
+    "config": "*"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "bot" : {
+    "channelAccessToken": "xxxxxxxxxxxxxxxxxxxxx_SET_YOUR_TOKEN_xxxxxxxxxxxxx"
+  },
+
+  "dest": {
+    "userId": "xxxxxxxxxxxx_SET_YOUR_ID_xxxxxxxxxxxxxxx"
+  },
+
+  "message": {
+    "receive": "You got a mail",
+    "pickup": "Pick up"
+  }
+}
+
