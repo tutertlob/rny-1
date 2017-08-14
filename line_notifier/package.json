@@ -22,6 +22,7 @@
 
   "dependencies": {
     "@line/bot-sdk": "*",
-    "config": "*"
+    "config": "*",
+    "express": "*"
   }
 }
