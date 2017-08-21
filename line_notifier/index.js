@@ -1,6 +1,7 @@
 const config = require('config');
 const http = require("http");
 const express = require("express");
+const bodyParser = require("body-parser");
 const line = require('@line/bot-sdk');
 
 const app = express();
@@ -9,8 +10,30 @@ const client = new line.Client({
   channelAccessToken: config.bot.channelAccessToken
 });
 
-function pushMessage(res, msg) {
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+/*
+ * POST /
+ * body { "key": "message key" }
+ */
+app.post("/", function(req, res) {
   res.header("Content-Type", "application/json; charset=utf-8");
+
+  const key = req.body.key;
+  console.log("key : " + key);
+  if (key == null) {
+    res.status(415);
+    res.send({ "status": "error", "detail": "key must not be null" });
+    return;
+  }
+
+  const msg = config.message[key];
+  if (msg == null) {
+    res.status(415);
+    res.send({ "status": "error", "detail": "message not found" });
+    return;
+  }
 
   const message = {
     "type": "text",
@@ -27,14 +50,6 @@ function pushMessage(res, msg) {
     res.send({ "status": "error", "detail": err });
     console.log(err);
   });
-};
-
-app.post("/receive", function(req, res) {
-  pushMessage(res, config.message.receive);
-});
-
-app.post("/pickup", function(req, res) {
-  pushMessage(res, config.message.pickup);
 });
 
 http.createServer(app).listen(config.server.port, config.server.host);
