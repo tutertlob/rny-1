@@ -1,0 +1,28 @@
+{
+  "name": "messenger",
+  "version": "0.0.1",
+  "description": "Retrieve a new record from the database and push it to the notifier.",
+  "main": "messenger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tutertlob/rny-1.git"
+  },
+  "keywords": [
+    ""
+  ],
+  "author": "Reiji Nishiyama",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/tutertlob/rny-1/issues"
+  },
+  "homepage": "https://github.com/tutertlob/rny-1#readme",
+  "dependencies": {
+    "config": "*",
+    "moment": "^2.20.1",
+    "mongodb": "^2.2.34",
+    "node-rest-client": "^3.1.0"
+  }
+}

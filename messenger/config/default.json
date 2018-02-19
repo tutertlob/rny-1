@@ -1,0 +1,12 @@
+{
+	"notifier": {
+		"host": "localhost",
+		"port": "3000"
+	},
+	"mongodb": {
+		"host": "localhost",
+		"port": "27017",
+		"db": "mailbox_notifier",
+		"collection": "posting_records"
+	}
+}
