@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="node_modules/node-rest-client/test/server/|node_modules/follow-redirects/node_modules/debug/|node_modules/mongodb-core/lib/wireprotocol/|**/node_modules/*|node_modules/follow-redirects/|node_modules/resolve-from/|node_modules/mongodb/lib/gridfs/|node_modules/mongodb/lib/gridfs-stream/|node_modules/follow-redirects/node_modules/ms/|node_modules/mongodb-core/|node_modules/mongodb/lib/bulk/|node_modules/mongodb-core/lib/topologies/|node_modules/follow-redirects/node_modules/debug/src/|node_modules/mongodb/|**/bower_components/*|node_modules/xmlbuilder/lib/|node_modules/mongodb/lib/|node_modules/ms/|node_modules/bson/|**/*.min.js|node_modules/require_optional/test/nestedTest/|node_modules/node-rest-client/test/specs/|node_modules/bson/browser_build/|node_modules/require_optional/test/|node_modules/bson/lib/bson/|node_modules/bson/lib/bson/parser/|node_modules/node-rest-client/test/|node_modules/mongodb/lib/topologies/|node_modules/node-rest-client/lib/|node_modules/require_optional/|node_modules/sax/lib/|node_modules/debug/|node_modules/mongodb-core/lib/tools/|node_modules/mongodb-core/lib/auth/|node_modules/mongodb-core/lib/|node_modules/semver/|node_modules/xml2js/lib/|node_modules/mongodb-core/lib/connection/" kind="src" path=""/>
+	<classpathentry excluding="lib/bson/|lib/bson/parser/|**/bower_components/*|**/node_modules/*|browser_build/|**/*.min.js" kind="src" path="node_modules/bson"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/bson/browser_build"/>
+	<classpathentry excluding="**/bower_components/*|parser/|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/bson/lib/bson"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/bson/lib/bson/parser"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/debug"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|node_modules/ms/|node_modules/debug/src/|**/*.min.js|node_modules/debug/" kind="src" path="node_modules/follow-redirects"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js|src/" kind="src" path="node_modules/follow-redirects/node_modules/debug"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/follow-redirects/node_modules/debug/src"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/follow-redirects/node_modules/ms"/>
+	<classpathentry excluding="lib/bulk/|**/bower_components/*|**/node_modules/*|lib/topologies/|lib/|lib/gridfs/|lib/gridfs-stream/|**/*.min.js" kind="src" path="node_modules/mongodb"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|lib/connection/|lib/topologies/|lib/tools/|lib/|lib/auth/|**/*.min.js|lib/wireprotocol/" kind="src" path="node_modules/mongodb-core"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|connection/|topologies/|**/*.min.js|tools/|wireprotocol/|auth/" kind="src" path="node_modules/mongodb-core/lib"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/mongodb-core/lib/auth"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/mongodb-core/lib/connection"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/mongodb-core/lib/tools"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/mongodb-core/lib/topologies"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/mongodb-core/lib/wireprotocol"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|bulk/|topologies/|**/*.min.js|gridfs/|gridfs-stream/" kind="src" path="node_modules/mongodb/lib"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/mongodb/lib/bulk"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/mongodb/lib/gridfs"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/mongodb/lib/gridfs-stream"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/mongodb/lib/topologies"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/ms"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/node-rest-client/lib"/>
+	<classpathentry excluding="specs/|**/bower_components/*|server/|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/node-rest-client/test"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/node-rest-client/test/server"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/node-rest-client/test/specs"/>
+	<classpathentry excluding="test/nestedTest/|**/bower_components/*|test/|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/require_optional"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js|nestedTest/" kind="src" path="node_modules/require_optional/test"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/require_optional/test/nestedTest"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/resolve-from"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/sax/lib"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/semver"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/xml2js/lib"/>
+	<classpathentry excluding="**/bower_components/*|**/node_modules/*|**/*.min.js" kind="src" path="node_modules/xmlbuilder/lib"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
