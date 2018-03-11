@@ -1,0 +1,26 @@
+extends layout
+
+block content
+	nav.navbar.fixed-top.navbar-expand.navbar-dark.bg-dark.py-lg-0
+		a.navbar-brand(href="#")
+			h1 rny-1
+		button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbar' aria-controls='navbar' aria-expanded='false' aria-label='Mailbox notifier')
+			span.navbar-toggler-icon
+		div.collapse.navbar-collapse#navbar
+			each camera in cameras
+				a.nav-item.nav-link.active.camera-selector(href='#', data-camera-select='#{camera.name}')
+					span.text-light= camera.dispName
+			a.nav-item.nav-link.active
+				button.btn.btn-primary#takePicBtn(type='submit', style='background-color: transparent; border: none;')
+					span.text-light.oi.oi-camera-slr
+	div(class='container py-4')
+		each item,index in records
+			div(class='row pt-5 pt-lg-4 camera-group-#{item.camera}')
+				div(class='col col-lg-8 mx-auto')
+					div(class='card mx-sm-auto mx-auto' style="box-shadow: 2px 2px 15px 10px rgba(0, 0, 0, 0.3);")
+						div(class='card-header')
+							span.card-title #{item.time} #{item.event}
+						if (item.img !== "")
+							img(class='card-img-bottom p-3' src='#{item.img}' alt='画像は削除されました。' id='img#{index}')
+							div.card-img-overlay
+								button.btn.btn-warning.delete-img-btn(type='button' style='float:right' data-delete-target='#{item.img}') 削除

@@ -1,0 +1,24 @@
+{
+	"mongodb": {
+		"host": "localhost",
+		"port": "27017",
+		"db": "mailbox_notifier",
+		"collection": "posting_records"
+	},
+	"receiverRest": {
+		"host": "localhost",
+		"port": "49152",
+		"url": "receiver/mailbox",
+		"method": "GET"
+	},
+	"cameras": {
+		"7094": {
+			"name": "mailbox",
+			"dispName": "ポスト"
+		},
+		"0": {
+			"name": "refrigerator",
+			"dispName": "冷蔵庫"
+		}
+	}
+}

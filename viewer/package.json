@@ -1,0 +1,38 @@
+{
+  "name": "viewer",
+  "version": "0.0.0",
+  "description": "Retrieve a new record from the database and push it to the notifier.",
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tutertlob/rny-1.git"
+  },
+  "keywords": [
+    ""
+  ],
+  "author": "Reiji Nishiyama",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/tutertlob/rny-1/issues"
+  },
+  "homepage": "https://github.com/tutertlob/rny-1#readme",
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "bootstrap": "^4.0.0",
+    "config": "^1.30.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "jade": "~1.11.0",
+    "jquery": "^1.9.1",
+    "moment": "^2.20.1",
+    "mongodb": "^2.2.34",
+    "morgan": "~1.9.0",
+    "node-rest-client": "^3.1.0",
+    "popper.js": "^1.12.9",
+    "serve-favicon": "~2.4.5"
+  }
+}
