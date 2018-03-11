@@ -4,7 +4,9 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 import com.github.tutertlob.im920wireless.packet.DataPacket;
+import com.github.tutertlob.im920wireless.packet.NoticePacket;
 import com.github.tutertlob.im920wireless.packet.Im920Packet;
+import com.mongodb.BasicDBObject;
 
 import java.util.Arrays;
 import java.nio.file.FileSystems;
@@ -38,8 +40,15 @@ class JpegImageReassembler implements Transceiver.PacketHandler {
 	
 	private Path path;
 
+	private NoticePacket lastEvent;
+	
 	@Override
 	public void handle(Im920Packet packet) {
+		if (packet instanceof NoticePacket) {
+			lastEvent = (NoticePacket) packet;
+			return;
+		}
+		
 		if (!(packet instanceof DataPacket)) {
 			return;
 		}
@@ -103,7 +112,6 @@ class JpegImageReassembler implements Transceiver.PacketHandler {
 	private void postJpegFile(Path path) {
 		logger.info("posting jpeg image.");
 		DatabaseUtil db = DatabaseUtilFactory.getDatabaseUtil();
-		Date date = new Date();
-		db.insertImageRecord(date, path);
+		db.insertImageRecord(lastEvent, path);
 	}
 }

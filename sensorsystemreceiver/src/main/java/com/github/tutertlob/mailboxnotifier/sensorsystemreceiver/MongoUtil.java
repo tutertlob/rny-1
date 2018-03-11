@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.text.SimpleDateFormat;
+import com.github.tutertlob.im920wireless.packet.NoticePacket;
 
 import java.lang.NullPointerException;
 import java.lang.IllegalArgumentException;
@@ -78,11 +79,14 @@ public class MongoUtil implements DatabaseUtil {
 	}
 	
 	@Override
-	public void insertImageRecord(Date capturedDate, Path file) {
+	public void insertImageRecord(NoticePacket notice, Path path) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-		BasicDBObject doc = new BasicDBObject("capturedDate", format.format(capturedDate))
-                .append("file", file.toString())
-                .append("event", "In");
+		BasicDBObject doc = new BasicDBObject();
+		doc.append("capturedDate", format.format(new Date()))
+				.append("sender", notice.getModuleId())
+				.append("receiver", notice.getNodeId())
+				.append("event", notice.getNotice())
+				.append("file", path.toString());
 		try {
 			collection.insert(doc);
 		} catch (MongoException e) {
@@ -91,10 +95,13 @@ public class MongoUtil implements DatabaseUtil {
 	}
 
 	@Override
-	public void insertEventRecord(Date occurredDate, String event, String message) {
+	public void insertEventRecord(NoticePacket notice, String message) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-		BasicDBObject doc = new BasicDBObject("receivedDate", format.format(occurredDate))
-				.append("event", event)
+		BasicDBObject doc = new BasicDBObject();
+		doc.append("receivedDate", format.format(new Date()))
+				.append("sender", notice.getModuleId())
+				.append("receiver", notice.getNodeId())
+				.append("event", notice.getNotice())
 				.append("message", message);
 		try {
 			collection.insert(doc);

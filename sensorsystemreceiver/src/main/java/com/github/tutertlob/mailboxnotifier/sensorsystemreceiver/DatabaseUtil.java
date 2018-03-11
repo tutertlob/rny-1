@@ -1,10 +1,10 @@
 package com.github.tutertlob.mailboxnotifier.sensorsystemreceiver;
 
 import java.nio.file.Path;
-import java.util.Date;
+import com.github.tutertlob.im920wireless.packet.NoticePacket;
 
 public interface DatabaseUtil {
-	public void insertImageRecord(Date capturedDate, Path file);
+	public void insertImageRecord(NoticePacket notice, Path path);
 	
-	public void insertEventRecord(Date occurredDate, String event, String message);
+	public void insertEventRecord(NoticePacket notice, String message);
 }

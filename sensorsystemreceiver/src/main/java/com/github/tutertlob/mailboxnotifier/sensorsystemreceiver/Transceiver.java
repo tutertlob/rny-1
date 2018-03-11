@@ -57,7 +57,7 @@ class Transceiver extends Thread {
 			im920 = new Im920(im920Interface);
 		} catch (IOException | NoSuchPortException | PortInUseException e) {
 			e.printStackTrace();
-			logger.log(Level.SEVERE, String.format("Serial port '%s' alread in used.", AppProperties.getProperty("serial.port")), e);
+			logger.log(Level.SEVERE, String.format("Serial port '%s' already in used.", AppProperties.getProperty("serial.port")), e);
 			System.exit(-1);
 		}
 	}
@@ -70,7 +70,7 @@ class Transceiver extends Thread {
 	}
 	
 	public static void sendMailboxCheckCommand() {
-		INSTANCE.im920.sendCommand(MAILBOX_CHECK_CMD, "This is a mailbox check command.");
+		INSTANCE.im920.sendCommand(MAILBOX_CHECK_CMD, "Capture command.");
 	}
 	
 	@Override
