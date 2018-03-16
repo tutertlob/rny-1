@@ -1,3 +1,9 @@
 .settings
 .project
 node_modules
+public/javascripts/bootstrap/
+public/javascripts/jquery/
+public/javascripts/popper.js/
+public/stylesheets/bootstrap/
+public/stylesheets/open-iconic/
+public/images/
