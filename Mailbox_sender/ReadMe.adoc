@@ -9,6 +9,8 @@
 
 This arduino project is a part of rny-1.
 
+Capture an image of the inside of mailbox and send it to the server side when letters are posted or picked into/from the mailbox.
+
 == Step 1: Installation
 
 Open this file in your arduino editor
@@ -38,11 +40,11 @@ This project is released under a {License} License.
 
 |===
 | ID | Part name      | Part number | Quantity
-| R1 | 10k Resistor   |             | 1       
+| R1 | 1k Resistor   |             | 1       
 | L1 | Red LED        |             | 1        
 | A1 | Arduino Nano   |             | 1        
 | S1 | Reed Switch    |             | 2
 | T1 | IM920          |             | 1        
-| M1 | Jpeg Camera    |             | 1        
+| M1 | Link Sprite Jpeg color camera    |             | 1        
 |===
 
