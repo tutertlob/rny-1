@@ -44,4 +44,8 @@ mv open-iconic-master public/stylesheets/open-iconic
 ```
 npm start
 ```
-
+## View
+ブラウザで以下のURLを開く 
+```
+http://<your view server address>:3001
+```
