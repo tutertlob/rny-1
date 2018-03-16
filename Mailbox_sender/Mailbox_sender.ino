@@ -3,12 +3,16 @@
 #include <avr/sleep.h>
 #include <avr/power.h>
 #include <avr/pgmspace.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 /* IM920 */
+// AltSoftSerial - Version: 1.4.0
 #include <AltSoftSerial.h>
 #include <im920.h>
 
 /* Linksprite */
+// #undef PCINT0_vect
 #include <SoftwareSerial.h>
 // JpegCamera - Version: Latest 
 #include <JPEGCamera.h>
@@ -22,7 +26,6 @@ static int busyPin = 12;
 static int resetPin = 4;
 IM920& im920 = IM920::Instance();
 IM920Frame frame;
-PacketOperator& packet = PacketOperator::refInstance(frame);
 DataPacket& data = DataPacket::Instance();
 NoticePacket& notice = NoticePacket::Instance();
 
@@ -32,6 +35,7 @@ void Sleep(void);
 
 void setup()
 {
+    pinMode(2, INPUT_PULLUP);
     pinMode(3, INPUT_PULLUP);
     Serial.begin(38400);
     cameraSerial.begin(38400);
@@ -62,7 +66,23 @@ void loop()
 	  notice.reset(frame);
 	  notice.setNotice(frame, "Pulled");
 	  im920.send(frame);
-	} else {
+	}
+  //
+  // To support the capture command from the server side,
+  // - enable the following lines
+  // - enable an interrupt for the serial connected to IM920 to wake up from power save mode
+  // - declare the isr for the interrupt.
+  //
+  /*
+	else if (im920.listen(frame, 1) == 0) {
+	  PacketOperator& packet = PacketOperator::refInstance(frame);
+	  if (packet.getPacketType(frame) != IM920_PACKET_COMMAND)
+	    return;
+	  if (((CommandPacket&)packet).getCommand(frame) != 0x80)
+	    return;
+	}
+	*/
+	else {
 	  return;
 	}
 
@@ -71,7 +91,7 @@ void loop()
 	for (int size = 0, count = 0, total = camera.getSize(); !camera.isEOF();)
 	{
 	  data.reset(frame);
-		uint8_t* jpeg = packet.getPayloadArray(frame);
+		uint8_t* jpeg = data.getPayloadArray(frame);
 		size = camera.readData(jpeg);
 		if (!camera.isEOF()) data.setFragment(frame, true);
 		data.resetPayloadLength(frame, size);
@@ -93,12 +113,38 @@ void handleReedSwitchInt() {
   ++isBackDoorOpened;
 }
 
+// An isr for PCINT0_vect has been already declared in the SoftwareSerial source
+// so this causes a compile error of multiple defined of it
+/*
+ISR(PCINT0_vect)
+{
+  // Can't call an inline function declared in other sources.
+  // SoftwareSerial::handle_interrupt();
+  PCMSK0 &= ~0x01;
+  sleep_disable();
+}
+*/
+
+void enableWakeUpSource()
+{
+  PCMSK0 |= 1;
+  // PCICR = 1;
+}
+
+void disableWakeUpSource()
+{
+  PCMSK0 &= ~0x01;
+}
+
 void Sleep(void) {
   Serial.println("I'm so sleepy.");
   Serial.flush();
-  // attachInterrupt(INT0, handleTiltSensorInt, FALLING);
-  attachInterrupt(INT1, handleReedSwitchInt, RISING);
+  attachInterrupt(INT0, handleTiltSensorInt, FALLING);
+  attachInterrupt(INT1, handleReedSwitchInt, FALLING);
+  
   camera.enterPowerSaving();
+  
+  // enableWakeUpSource();
   
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   sleep_enable();
@@ -113,9 +159,10 @@ void Sleep(void) {
   
   // here after waking from sleep
   sleep_disable();
-  power_all_enable();
+  power_timer1_enable();
+  // disableWakeUpSource();
   Serial.println("Mega shakeeeeen!");
   camera.quitPowerSaving();
-  // detachInterrupt(INT0);
+  detachInterrupt(INT0);
   detachInterrupt(INT1);
 }

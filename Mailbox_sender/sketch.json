@@ -1,1 +1,1 @@
-{"cpu":{"name":"Arduino Nano","com_name":"/dev/cu.wchusbserial620","fqbn":"arduino:avr:nano:cpu=atmega328","flavour":"atmega328"},"secrets":[]}
+{"cpu":{"fqbn":"arduino:avr:nano:cpu=atmega328","name":"Arduino Nano","port":""},"included_libs":[{"name":"AltSoftSerial","version":"1.4.0"}],"secrets":[]}
