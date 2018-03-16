@@ -17,6 +17,9 @@ Open this file in your arduino editor
 
 See the layout image and BOM.
 
+.Layout image
+image:Mailbox_sender_layout.png[]
+
 == Step 3: Load the code
 
 Upload the code contained in this sketch on to your board
