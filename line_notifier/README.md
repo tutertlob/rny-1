@@ -14,16 +14,16 @@ npm install
 
 ## Run
 ```
-node index.js
+npm start
 ```
 
 ## Notify
 ### Receive
 ```
-curl -X POST -H 'Content-Type:application/json' -d '{"keys":"receive"}' http://localhost:3000/
+curl -X POST -H 'Content-Type:application/json' -d '{"key":"receive"}' http://localhost:3000/
 ```
 ### Pickup
 ```
-curl -X POST -H 'Content-Type:application/json' -d '{"keys":"pickup"}' http://localhost:3000/
+curl -X POST -H 'Content-Type:application/json' -d '{"key":"pickup"}' http://localhost:3000/
 ```
 
