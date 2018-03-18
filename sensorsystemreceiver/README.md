@@ -2,12 +2,9 @@
 Arduinoで制御された`Mailbox_notifier`から送信される郵便投函、郵便取り出し通知と画像を受信する。受信した通知はデータベースMongoDBに、
 画像はストレージに格納し、`Viewer`によってブラウザからそれらを確認できるようになる。
 
-## Prerequisites
-Javaでシリアルポートを使用するため[`RXTX`](http://rxtx.qbang.org/wiki/index.php/Installation_on_Linux)が必要。
-
-以下のURLのインストール手順に沿ってrxtxライブラリをインストールする。
-
-http://rxtx.qbang.org/wiki/index.php/Installation_on_Linux
+## Dependencies
+依存するパッケージを予めインストールしておく。
+- [`im920-java`](https://github.com/tutertlob/im920-java)
 
 ## Install
 Mavenでjarファイルを作成する。
@@ -25,7 +22,7 @@ cp sensorsystemreceiver.properties target/
   - IM920が接続されたシリアルポート。
 
 ## Run
-`java.library.path`にはrxtxのjniライブラリのディレクトリを指定する。
+`java.library.path`にはrxtxのjniライブラリ`librxtxSerial.so`のインストールディレクトリを指定する（詳細は[こちら](https://github.com/tutertlob/im920-java)）。
 ```
 java -Djava.library.path=/usr/lib/jni -jar target/sensorsystemreceiver-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
