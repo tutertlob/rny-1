@@ -1,13 +1,21 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project 
+    xmlns="http://maven.apache.org/POM/4.0.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.github.tutertlob</groupId>
     <artifactId>sensorsystemreceiver</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
+
     <name>sensorsystemreceiver</name>
+
+    <repositories>
+        <repository>
+            <id>rxtx</id>
+            <url>http://repo.opennms.org/maven2/</url>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -30,9 +38,8 @@
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
         </dependency>
-
-        <!-- uncomment this to get JSON support:
-         <dependency>
+        <!-- uncomment this to get JSON support:-
+        <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-binding</artifactId>
         </dependency>
@@ -44,19 +51,19 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-		  <groupId>gnu.io</groupId>
-		  <artifactId>rxtx</artifactId>
-		  <version>2.2pre2</version>
-	  	</dependency>
-        <dependency>
-        	<groupId>com.github.tutertlob.im920wireless</groupId>
-        	<artifactId>im920wireless</artifactId>
-        	<version>1.0-SNAPSHOT</version>
+            <groupId>org.rxtx</groupId>
+            <artifactId>rxtx</artifactId>
+            <version>2.2pre2</version>
         </dependency>
         <dependency>
-        	<groupId>org.mongodb</groupId>
-        	<artifactId>mongo-java-driver</artifactId>
-        	<version>2.14.2</version>
+            <groupId>com.github.tutertlob.im920wireless</groupId>
+            <artifactId>im920wireless</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>2.14.2</version>
         </dependency>
     </dependencies>
 
@@ -66,10 +73,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -86,53 +93,53 @@
                     <mainClass>com.github.tutertlob.mailboxnotifier.sensorsystemreceiver.Main</mainClass>
                 </configuration>
             </plugin>
-            
             <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.1.0</version>
-        <configuration>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
-			<archive>
-				<manifest>
-					<mainClass>com.github.tutertlob.mailboxnotifier.sensorsystemreceiver.Main</mainClass>
-				</manifest>
-				<manifestEntries>
-					<Class-Path>.</Class-Path>
-				</manifestEntries>
-			</archive>
-        </configuration>
-        <executions>
-          <execution>
-            <id>make-assembly</id> <!-- this is used for inheritance merges -->
-            <phase>package</phase> <!-- bind to the packaging phase -->
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-            
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.github.tutertlob.mailboxnotifier.sensorsystemreceiver.Main</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <Class-Path>.</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!-- this is used for inheritance merges -->
+                        <phase>package</phase>
+                        <!-- bind to the packaging phase -->
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-jar-plugin</artifactId>
-		        <version>3.0.2</version>
-		        <configuration>
-          			<archive>
-            				<manifest>
-              				<addClasspath>true</addClasspath>
-              				<mainClass>com.github.tutertlob.mailboxnotifier.sensorsystemreceiver.Main</mainClass>
-            				</manifest>
-            				<manifestEntries>
-              				<mode>development</mode>
-              				<url>${project.url}</url>
-              				<Class-Path>.</Class-Path>
-              				<key>value</key>
-            				</manifestEntries>
-          			</archive>
-        			</configuration>
-	      	</plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.github.tutertlob.mailboxnotifier.sensorsystemreceiver.Main</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <mode>development</mode>
+                            <url>${project.url}</url>
+                            <Class-Path>.</Class-Path>
+                            <key>value</key>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -141,4 +148,5 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
 </project>
