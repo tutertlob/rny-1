@@ -61,7 +61,7 @@ MongoClient.connect(`mongodb://${dbConfig.host}:${dbConfig.port}`)
 				console.log(response);
 				if (response.event === 'Posted') {
 					var args = {
-							'data': {"keys":"receive"},
+							'data': {"key":"receive"},
 							'headers': {'Content-Type': 'application/json'}
 					};
 					rest.post(`http://${notifierConfig.host}:${notifierConfig.port}/`, args, (data, response) => {
@@ -69,7 +69,7 @@ MongoClient.connect(`mongodb://${dbConfig.host}:${dbConfig.port}`)
 					});
 				} else if (response.event === "Pulled") {
 					var args = {
-							'data': {"keys":"pickup"},
+							'data': {"key":"pickup"},
 							'headers': {'Content-Type': 'application/json'}
 					};
 					rest.post(`http://${notifierConfig.host}:${notifierConfig.port}/`, args, (data, response) => {
