@@ -1,24 +1,20 @@
 package com.github.tutertlob.mailboxnotifier.sensorsystemreceiver;
 
-import java.util.logging.Logger;
-import java.util.logging.Level;
-
-import com.github.tutertlob.im920wireless.packet.DataPacket;
-import com.github.tutertlob.im920wireless.packet.NoticePacket;
-import com.github.tutertlob.im920wireless.packet.Im920Packet;
-import com.mongodb.BasicDBObject;
-
-import java.util.Arrays;
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import java.util.Date;
-import java.time.format.DateTimeFormatter;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.github.tutertlob.im920wireless.packet.DataPacket;
+import com.github.tutertlob.im920wireless.packet.Im920Packet;
+import com.github.tutertlob.im920wireless.packet.NoticePacket;
 
 class JpegImageReassembler implements Transceiver.PacketHandler {
 
