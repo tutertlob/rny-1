@@ -65,7 +65,7 @@ public class ReceiverRestServer {
 
 	public static void finish() {
 		logger.info("Stopping ReceiverRestServer...");
-		server.stop();
+		server.shutdownNow();
 	}
 
 }
