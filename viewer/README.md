@@ -8,7 +8,7 @@ MongoDBはポスト投函／取り出しイベントの保存先データベー�
 
 `sensorsystemreceiver`はREST APIを一つホストしており、`Mailbox_sender`に最新画像の撮影と送信を要求するために使用する。REST APIの設定は"receiverRest"に行い`sensorsystemreceiver`と設定内容を合わせる。ただし、本機能はArduino制御のモジュール機器の消費電力を大幅に抑制するためモジュール側では撮影要求コマンドの受信待機は行わず、従ってシステムとしては機能しない。機能させるには`Mailbox_sender`で間欠的にIM920パケット受信確認するか、HWシリアルポートを複数持つArduinoにてIM920通信モジュールを未使用のHWシリアルポートに接続し、シリアルのHW割り込みを掛けられるようにデザインする必要がある。
 
-カメラモジュールを複数台設置する場合を想定し、モジュールIDと任意のユニークな識別子、Viewerでの表示名を"cameras"に記載する。モジュールIDには、IM920無線フレームデータの送信モジュールの固有IDを指定する。識別名と表示名はHTML内で使用され、それぞれ設置場所に関連したものが望ましい。
+カメラモジュールを複数台設置する場合を想定し、モジュールIDと任意のユニークな識別子、Viewerでの表示名を"cameras"に記載する。モジュールIDには、IM920無線フレームデータの送信モジュールの固有IDを指定する。識別名と表示名はHTML内で使用され、それぞれ設置場所に関連したものが望ましい。
 
 ## Install
 NodeJSパッケージのインストール
@@ -18,10 +18,10 @@ npm install
 Bootstrapの再配置
 ```
 mkdir -p public/javascripts/bootstrap
-cp node_modules/bootstrap/dist/bootstrap.min.js public/javascripts/bootstrap/.
+cp node_modules/bootstrap/dist/js/bootstrap.min.js public/javascripts/bootstrap/.
 mkdir -p public/stylesheets/bootstrap
 cp node_modules/bootstrap/dist/css/bootstrap.min.css public/stylesheets/bootstrap/.
-cp node_modules/bootstrap/dist/js/bootstrap.min.css.map public/stylesheets/bootstrap/.
+cp node_modules/bootstrap/dist/css/bootstrap.min.css.map public/stylesheets/bootstrap/.
 ```
 jQueryの再配置
 ```
