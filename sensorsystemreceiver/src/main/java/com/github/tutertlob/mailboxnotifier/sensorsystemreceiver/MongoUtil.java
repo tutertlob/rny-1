@@ -32,24 +32,24 @@ public class MongoUtil implements DatabaseUtil {
 		String dbcollection;
 
 		try {
-			host = AppProperties.getProperty("database.host");
+			host = AppProperties.getInstance().getProperty("database.host");
 		} catch (IllegalArgumentException | NullPointerException e) {
 			host = "localhost";
 		}
 		try {
-			port = Integer.parseInt(AppProperties.getProperty("database.port"));
+			port = Integer.parseInt(AppProperties.getInstance().getProperty("database.port"));
 		} catch (IllegalArgumentException | NullPointerException e) {
 			port = 27017;
 		}
 
 		try {
-			db = AppProperties.getProperty("database.db");
+			db = AppProperties.getInstance().getProperty("database.db");
 		} catch (IllegalArgumentException | NullPointerException e) {
 			db = "mailbox_notifier";
 		}
 
 		try {
-			dbcollection = AppProperties.getProperty("database.collection");
+			dbcollection = AppProperties.getInstance().getProperty("database.collection");
 		} catch (IllegalArgumentException | NullPointerException e) {
 			dbcollection = "posting_records";
 		}

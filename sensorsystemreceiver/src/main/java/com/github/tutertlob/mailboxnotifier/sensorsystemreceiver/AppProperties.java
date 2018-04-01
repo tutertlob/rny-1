@@ -12,13 +12,13 @@ public class AppProperties {
 
 	private static final String CURRENT_PACKAGE = AppProperties.class.getPackage().getName();
 
-	private static final Map<String, String> defaults = new HashMap<>();
-
 	private static final AppProperties INSTANCE = new AppProperties();
 
-	private static String propertyfile;
+	private String propertyfile;
 
-	private static ResourceBundle properties;
+	private ResourceBundle properties;
+
+	private Map<String, String> defaults;
 
 	private AppProperties() {
 		String[] parts = CURRENT_PACKAGE.split("\\.");
@@ -29,10 +29,12 @@ public class AppProperties {
 		} catch (MissingResourceException e) {
 			logger.log(Level.WARNING, "The property file doesn't exist.", e);
 		}
+
 		setupDefaultProperties();
 	}
 
 	private void setupDefaultProperties() {
+		defaults = new HashMap<>();
 		defaults.put("serial.baud", "19200");
 		defaults.put("serial.port", "/dev/ttyUSB0");
 		defaults.put("rest.host", "localhost");
@@ -47,7 +49,11 @@ public class AppProperties {
 		defaults.put("filestore.path", "./");
 	}
 
-	public static final String getProperty(String key) {
+	public static AppProperties getInstance() {
+		return INSTANCE;
+	}
+
+	public final String getProperty(String key) {
 		if (properties == null) {
 			return defaults.get(key);
 		}

@@ -32,10 +32,10 @@ class Transceiver extends Thread {
 		Im920Interface.BaudRate baud = Im920Interface.BaudRate.B_19200;
 		String port = "/dev/ttyUSB0";
 		try {
-			Integer b = Integer.parseInt(AppProperties.getProperty("serial.baud"));
+			Integer b = Integer.parseInt(AppProperties.getInstance().getProperty("serial.baud"));
 			baud = Im920Interface.BaudRate.valueOf(b);
 
-			port = AppProperties.getProperty("serial.port");
+			port = AppProperties.getInstance().getProperty("serial.port");
 		} catch (IllegalArgumentException e) {
 			logger.log(Level.WARNING,
 					"The property 'serial.baud' includes non numerical characters or is not supported for Im920Interface.",
@@ -51,8 +51,8 @@ class Transceiver extends Thread {
 			im920 = new Im920(im920Interface);
 		} catch (IOException | NoSuchPortException | PortInUseException e) {
 			e.printStackTrace();
-			logger.log(Level.SEVERE,
-					String.format("Serial port '%s' already in used.", AppProperties.getProperty("serial.port")), e);
+			logger.log(Level.SEVERE, String.format("Serial port '%s' already in used.",
+					AppProperties.getInstance().getProperty("serial.port")), e);
 			System.exit(-1);
 		}
 	}

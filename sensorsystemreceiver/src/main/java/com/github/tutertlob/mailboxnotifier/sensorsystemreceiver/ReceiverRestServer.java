@@ -19,14 +19,14 @@ public class ReceiverRestServer {
 	private static String getBaseUri() {
 		String host;
 		try {
-			host = AppProperties.getProperty("rest.host");
+			host = AppProperties.getInstance().getProperty("rest.host");
 		} catch (IllegalArgumentException | NullPointerException e) {
 			host = "localhost";
 		}
 
 		String port;
 		try {
-			port = AppProperties.getProperty("rest.port");
+			port = AppProperties.getInstance().getProperty("rest.port");
 		} catch (IllegalArgumentException | NullPointerException e) {
 			port = "49152";
 		}

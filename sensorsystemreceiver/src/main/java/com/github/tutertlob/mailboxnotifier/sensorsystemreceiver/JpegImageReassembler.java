@@ -19,37 +19,37 @@ import com.github.tutertlob.im920wireless.packet.NoticePacket;
 class JpegImageReassembler implements Transceiver.PacketHandler {
 
 	private static final Logger logger = Logger.getLogger(JpegImageReassembler.class.getName());
-	
+
 	private State state = State.END;
 
 	private enum State {
 		PROCESSING, END;
 	}
 
-	private static final byte[] SOI = {(byte)0xFF, (byte)0xD8};
+	private static final byte[] SOI = { (byte) 0xFF, (byte) 0xD8 };
 
-	private static final byte[] EOI = {(byte)0xFF, (byte)0xD9};
+	private static final byte[] EOI = { (byte) 0xFF, (byte) 0xD9 };
 
 	private static final String JPEG_EXT = ".jpg";
 
 	private BufferedOutputStream jpegOStream;
-	
+
 	private Path path;
 
 	private NoticePacket lastEvent;
-	
+
 	@Override
 	public void handle(Im920Packet packet) {
 		if (packet instanceof NoticePacket) {
 			lastEvent = (NoticePacket) packet;
 			return;
 		}
-		
+
 		if (!(packet instanceof DataPacket)) {
 			return;
 		}
 
-		DataPacket data = (DataPacket)packet;
+		DataPacket data = (DataPacket) packet;
 		byte[] jpegChoppedData = data.getData();
 
 		if (state == State.END) {
@@ -59,7 +59,7 @@ class JpegImageReassembler implements Transceiver.PacketHandler {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 				String jpegFileName = timestamp.format(formatter);
 
-				String basepath = AppProperties.getProperty("filestore.path");
+				String basepath = AppProperties.getInstance().getProperty("filestore.path");
 				path = FileSystems.getDefault().getPath(basepath, jpegFileName + JPEG_EXT).toAbsolutePath().normalize();
 				try {
 					jpegOStream = new BufferedOutputStream(new FileOutputStream(path.toString()));
@@ -86,7 +86,8 @@ class JpegImageReassembler implements Transceiver.PacketHandler {
 			}
 		} else if (state == State.PROCESSING) {
 			try {
-				byte[] eoi = Arrays.copyOfRange(jpegChoppedData, jpegChoppedData.length - EOI.length, jpegChoppedData.length);
+				byte[] eoi = Arrays.copyOfRange(jpegChoppedData, jpegChoppedData.length - EOI.length,
+						jpegChoppedData.length);
 				jpegOStream.write(jpegChoppedData);
 				if (!packet.isFragmented()) {
 					jpegOStream.close();
@@ -94,7 +95,8 @@ class JpegImageReassembler implements Transceiver.PacketHandler {
 					postJpegFile(path);
 					state = State.END;
 					if (!Arrays.equals(EOI, eoi))
-						throw new IllegalStateException("Reached to the end of fragmented packets seriese although the end of jpeg chunk data never detected.");
+						throw new IllegalStateException(
+								"Reached to the end of fragmented packets seriese although the end of jpeg chunk data never detected.");
 				}
 			} catch (IOException e) {
 				logger.log(Level.WARNING, "Closing file or Writing data to the jpeg file failed.", e);
@@ -104,7 +106,7 @@ class JpegImageReassembler implements Transceiver.PacketHandler {
 			}
 		}
 	}
-	
+
 	private void postJpegFile(Path path) {
 		logger.info("posting jpeg image.");
 		DatabaseUtil db = DatabaseUtilFactory.getDatabaseUtil();
