@@ -86,6 +86,7 @@ public class MongoUtil implements DatabaseUtil {
 				.append("sender", notice.getModuleId())
 				.append("receiver", notice.getNodeId())
 				.append("event", notice.getNotice())
+				.append("rssi", notice.getRssi())
 				.append("file", path.toString());
 		try {
 			collection.insert(doc);
@@ -102,6 +103,7 @@ public class MongoUtil implements DatabaseUtil {
 				.append("sender", notice.getModuleId())
 				.append("receiver", notice.getNodeId())
 				.append("event", notice.getNotice())
+				.append("rssi", notice.getRssi())
 				.append("message", message);
 		try {
 			collection.insert(doc);
