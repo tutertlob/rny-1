@@ -4,7 +4,7 @@
   "description": "Retrieve a new record from the database and push it to the notifier.",
   "main": "messenger.js",
   "scripts": {
-	"start": "node messenger.js",
+    "start": "node messenger.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
