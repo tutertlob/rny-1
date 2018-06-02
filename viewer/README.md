@@ -18,7 +18,8 @@ npm install
 Bootstrapの再配置
 ```
 mkdir -p public/javascripts/bootstrap
-cp node_modules/bootstrap/dist/js/bootstrap.min.js public/javascripts/bootstrap/.
+cp node_modules/bootstrap/dist/js/bootstrap.min.js public/javascripts/bootstrap/. 
+cp node_modules/bootstrap/dist/js/bootstrap.min.js.map public/javascripts/bootstrap/.
 mkdir -p public/stylesheets/bootstrap
 cp node_modules/bootstrap/dist/css/bootstrap.min.css public/stylesheets/bootstrap/.
 cp node_modules/bootstrap/dist/css/bootstrap.min.css.map public/stylesheets/bootstrap/.
@@ -32,6 +33,7 @@ popperの再配置
 ```
 mkdir -p public/javascripts/popper.js/umd
 cp node_modules/popper.js/dist/umd/popper.min.js public/javascripts/popper.js/umd/.
+cp node_modules/popper.js/dist/umd/popper.min.js.map public/javascripts/popper.js/umd/.
 ```
 open-iconicのダウンロードと配置
 ```
