@@ -17,6 +17,7 @@
 // JpegCamera - Version: Latest 
 #include <JPEGCamera.h>
 
+#define CAPTURE_COMMAND_CAPABLE
 #define CAMERA_BAUDRATE 38400
 #define IM920_BAUDRATE  38400
 #define SERIAL_BAUDRATE 38400
