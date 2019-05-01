@@ -1,20 +1,20 @@
 package com.github.tutertlob.mailboxnotifier.sensorsystemreceiver;
 
-import java.io.BufferedOutputStream;
-import java.io.FileNotFoundException;
+import com.github.tutertlob.subghz.DataPacketInterface;
+import com.github.tutertlob.subghz.NoticePacketInterface;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.Arrays;
 import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.github.tutertlob.im920wireless.packet.DataPacket;
-import com.github.tutertlob.im920wireless.packet.Im920Packet;
-import com.github.tutertlob.im920wireless.packet.NoticePacket;
+import java.io.BufferedOutputStream;
+import com.github.tutertlob.subghz.SubGHzFrame;
+import com.github.tutertlob.subghz.PacketImplementation;
 
 class JpegImageReassembler implements Transceiver.PacketHandler {
 
@@ -22,34 +22,39 @@ class JpegImageReassembler implements Transceiver.PacketHandler {
 
 	private State state = State.END;
 
-	private enum State {
-		PROCESSING, END;
+	private static enum State {
+		PROCESSING,	END;
 	}
 
-	private static final byte[] SOI = { (byte) 0xFF, (byte) 0xD8 };
+	private static final byte[] SOI = { ( byte ) 0xFF , ( byte ) 0xD8 };
 
-	private static final byte[] EOI = { (byte) 0xFF, (byte) 0xD9 };
+	private static final byte[] EOI = { ( byte ) 0xFF , ( byte ) 0xD9 };
 
 	private static final String JPEG_EXT = ".jpg";
 
-	private BufferedOutputStream jpegOStream;
+	private NoticePacketInterface lastEvent;
 
 	private Path path;
 
-	private NoticePacket lastEvent;
+	private BufferedOutputStream jpegOStream;
+
+	public JpegImageReassembler() {
+
+	}
 
 	@Override
-	public void handle(Im920Packet packet) {
-		if (packet instanceof NoticePacket) {
-			lastEvent = (NoticePacket) packet;
+	public void handle(SubGHzFrame frame) {
+		PacketImplementation packet = frame.getPacket();
+		if (packet instanceof NoticePacketInterface) {
+			lastEvent = (NoticePacketInterface) packet;
 			return;
 		}
 
-		if (!(packet instanceof DataPacket)) {
+		if (!(packet instanceof DataPacketInterface)) {
 			return;
 		}
 
-		DataPacket data = (DataPacket) packet;
+		DataPacketInterface data = (DataPacketInterface) packet;
 		byte[] jpegChoppedData = data.getData();
 
 		if (state == State.END) {
@@ -112,4 +117,5 @@ class JpegImageReassembler implements Transceiver.PacketHandler {
 		DatabaseUtil db = DatabaseUtilFactory.getDatabaseUtil();
 		db.insertImageRecord(lastEvent, path);
 	}
+
 }

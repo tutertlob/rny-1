@@ -22,16 +22,25 @@ $(document).on('DOMContentLoaded', e => {
 		$(`.camera-group-${selected}`).toggle();
 	});
 
-	$('#takePicBtn').on('click', e => {
-		$.get('/images/capture')
+	$('#takePicBtn').on('click', (e, undefined) => {
+		var cameraid = $('#dropkick').data('selectedcamera');
+		if (cameraid === undefined) {
+			cameraid = "*";
+		}
+		$.get('/images/capture/' + cameraid)
 		.done(response => {
 			console.log(response);
 			alert(response + '\n１分程待ってね');
 		});
 	});
+
+	$('#dropkick .dropdown-item').on('click', e => {
+		var camera = $(e.target);
+		$('#dropkick').data('selectedcamera', camera.data('cameraid'));
+		$('.dropdown-toggle', $(e.target).closest('.dropdown')).text(camera.text());
+	});
 	
 	$('.delete-img-btn').on('click', e => {
-		console.log(e);
 		var img = $(e.target).data('deleteTarget');
 		$.post('images/delete', {file: img})
 		.done(response => {

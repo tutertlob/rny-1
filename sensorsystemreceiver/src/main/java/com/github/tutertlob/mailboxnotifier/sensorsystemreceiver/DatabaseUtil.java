@@ -1,10 +1,16 @@
 package com.github.tutertlob.mailboxnotifier.sensorsystemreceiver;
 
+import java.util.List;
 import java.nio.file.Path;
-import com.github.tutertlob.im920wireless.packet.NoticePacket;
+import com.github.tutertlob.subghz.NoticePacketInterface;
+import com.github.tutertlob.subghz.SubGHzFrame;
 
 public interface DatabaseUtil {
-	public void insertImageRecord(NoticePacket notice, Path path);
+	public void insertImageRecord(NoticePacketInterface notice, Path path);
 	
-	public void insertEventRecord(NoticePacket notice, String message);
+	public void insertEventRecord(SubGHzFrame frame, String message);
+
+	public String getSensorList();
+
+	public void insertSensor(String sensor);
 }

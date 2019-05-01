@@ -48,6 +48,9 @@ router.get('/', function(req, res, next) {
 			console.log(records);
 		})
 		.then(() => {
+			rest.get(`http://${config.receiverRest.host}:${config.receiverRest.port}/${config.receiverRest.url}`, (data, response) => {
+        		console.log(Buffer.from(data).toString());
+			});
 			const ids = Object.keys(config.cameras);
 			var cameras = []
 			for (var id in config.cameras) {
@@ -65,8 +68,8 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-router.get('/images/capture', function(req, res, next) {
-	rest.get(`http://${config.receiverRest.host}:${config.receiverRest.port}/${config.receiverRest.url}`, (data, response) => {
+router.get('/images/capture/:cameraId', function(req, res, next) {
+	rest.get(`http://${config.receiverRest.host}:${config.receiverRest.port}/${config.receiverRest.url}/mailbox/req.params.cameraId`, (data, response) => {
         var message = Buffer.from(data).toString();
         res.send(message);
 	});

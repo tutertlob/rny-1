@@ -11,7 +11,7 @@
 	"receiverRest": {
 		"host": "localhost",
 		"port": "49152",
-		"url": "receiver/mailbox",
+		"url": "receiver/mailboxes",
 		"method": "GET"
 	},
 	"cameras": {

@@ -1,7 +1,7 @@
 extends layout
 
 block content
-	nav.navbar.fixed-top.navbar-expand.navbar-dark.bg-dark.py-lg-0
+	nav.navbar.navbar-expand.navbar-dark.flex-column.flex-md-row.bd-navbar.fixed-top.bg-dark.py-lg-0
 		a.navbar-brand(href="#")
 			h1 rny-1
 		button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbar' aria-controls='navbar' aria-expanded='false' aria-label='Mailbox notifier')
@@ -10,12 +10,24 @@ block content
 			each camera in cameras
 				a.nav-item.nav-link.active.camera-selector(href='#', data-camera-select='#{camera.name}')
 					span.text-light= camera.dispName
+			div.nav-item.dropdown
+				button(class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') カメラリスト
+				div(class='dropdown-menu' aria-labelledby='dropdownMenuButton' id='dropkick')
+					a(class='dropdown-item' data-cameraid='1198') Autton
+					a(class='dropdown-item' data-cameraid='2ef0') Button
+					a(class='dropdown-item' data-cameraid='4450') Cutton
 			a.nav-item.nav-link.active
-				button.btn.btn-primary#takePicBtn(type='submit', style='background-color: transparent; border: none;')
-					span.text-light.oi.oi-camera-slr
+				button.btn.btn-primary#takePicBtn(type='submit' style='background-color: transparent; border: none;')
+					span(style="font-size: 1.5em;")
+						i.text-light.oi.oi-camera-slr
+		ul.navbar-nav.d-md-flex.flex-row.ml-md-auto.d-none.d-sm-none.d-md-none
+			li.nav-item.nav-link.active
+				button.btn.btn-primary#setting(data-toggle='modal' data-target='#cameraSettingModal' style='background-color: transparent; border: none;')
+					span(style="font-size: 1.5em;")
+						i.text-light.oi.oi-cog
 	div(class='container py-4')
 		each item,index in records
-			div(class='row pt-5 pt-lg-4 camera-group-#{item.camera}')
+			div(class='row pt-5 pt-lg-4 camera-group-#{item.camera}' id='cameraImages')
 				div(class='col col-lg-8 mx-auto')
 					div(class='card mx-sm-auto mx-auto' style="box-shadow: 2px 2px 15px 10px rgba(0, 0, 0, 0.3);")
 						div(class='card-header')
@@ -24,3 +36,40 @@ block content
 							img(class='card-img-bottom p-3' src='#{item.img}' alt='画像は削除されました。' id='img#{index}')
 							div.card-img-overlay
 								button.btn.btn-warning.delete-img-btn(type='button' style='float:right' data-delete-target='#{item.img}') 削除
+		div.modal#cameraSettingModal(tabindex='-1' role='dialog')
+			div.modal-dialog(role='document')
+				div.modal-content
+					div.modal-header
+						h5.modal-title カメラ一覧
+						button.close(type='button' data-dismiss='modal' aria-label='Close')
+							span(aria-hidden='true') &times;
+					div.modal-body
+						each camera in cameras
+							
+						div.card.my-1
+							div.card-header untitted
+							div.card-body
+								div.form-row
+									div.form-group
+										label(for='inputCameraName')
+									p.card-text hogefdfd
+						div.card.my-1
+							div.card-header untitted
+							div.card-body
+								h5.card-title no id
+								p.card-text hogeddddddddddddddddddd
+						div.card.my-1
+							div.card-header untitted
+							div.card-body
+								div.form-row
+									div.form-group
+										label(for='inputCameraName')
+									p.card-text hogefdfd
+						div.card.my-1
+							div.card-header untitted
+							div.card-body
+								h5.card-title no id
+								p.card-text hogeddddddddddddddddddd
+					div.modal-footer
+						button.btn.btn-primary(type='button') 設定保存
+						button.btn.btn-secondary(type='button' data-dismiss='modal') 閉じる
