@@ -1,0 +1,9 @@
+USED_MCUBOARD = LAZURITE mini
+USED_OPTION = LAZURITE mini series
+USED_BAUDRATE = 115200
+USED_COM_NUM = COM3
+LIBRARIES = assert
+LIBRARIES = DebugUtils
+LIBRARIES = Lazurite_Wireless
+LIBRARIES = LinkSpriteCamera
+LIBRARIES = power_mode
