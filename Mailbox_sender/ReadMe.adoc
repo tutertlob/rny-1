@@ -1,50 +1,63 @@
 :Author: Reiji-N
 :Email: nishiyama.reiji@gmail.com
-:Date: 24/02/2018
+:Date: 26/05/2019
 :Revision: version#
 :License: Public Domain
 :Project: Mailbox_sender
 
 = Project: {Project}
 
-This arduino project is a part of rny-1.
+This http://www.lapis-semi.com/lazurite-jp/products[Lazurite] project is a part of rny-1.
 
 Capture an image of the inside of mailbox and send it to the server side when letters are posted or picked into/from the mailbox.
 
 == Step 1: Installation
 
-Open this file in your arduino editor
+1. Download this project.
+2. Open Mailbox_sender.c with the Lazurite IDE.
+3. Build it and upload the output onto your Lazurite module.
 
 == Step 2: Assemble the circuit
 
-See the layout image and BOM.
+See the Schematic, PCB and BOM.
 
-.Layout image
-image:Mailbox_sender_layout.png[]
+Mount components listed in the BOM onto the PCB.
 
-== Step 3: Load the code
+== Schematic
 
-Upload the code contained in this sketch on to your board
+.Schematic
+image::schematic.png[Schematic]
 
-=== Folder structure
+== PCB design
 
- Mailbox_sender
-  ├── Mailbox_sender.ino
-  ├── Mailbox_sender_layout.png
-  └── ReadMe.adoc
+Mailbox_notifier_gerber.zip is the gerber file for the PCB.
+See also https://upverter.com/design/reiji-n/384e40da79d8f150/mailbox-notifier-ver-30/[the Upverter project] for more detail.
 
-=== License
-This project is released under a {License} License.
+.PCB top view
+image::gerber_view_top.png[PCB top view, 434, 361]
+
+.PCB bottom view
+image::gerber_view_bottom.png[PCB bottom view, 435, 362]
 
 === BOM
 
 |===
 | ID | Part name      | Part number | Quantity
-| R1 | 1k Resistor   |             | 1       
-| L1 | Red LED        |             | 1        
-| A1 | Arduino Nano   |             | 1        
-| S1 | Reed Switch    |             | 2
-| T1 | IM920          |             | 1        
-| M1 | Link Sprite Jpeg color camera    |             | 1        
+| R1 | 1Kohm Resistor 0603 SMD  | ESR03EZPJ102 | 1       
+| R2 | 75Kohm Resistor 0603 SMD  | RR0816P-753-D | 1   
+| R3 | 402Kohm Resistor 0402 SMD  | ERJ2RKD4023X | 1   
+| C1, C2 | 2.2uF Capacitor 0402 SMD  | GRM155R61C225KE11D | 2 
+| L1 | 10uH Inductor | LQH43PH100M26L            | 1             
+| S1 | Reed Switch    |             | 2 
+| U1 | Lazurite 920J |             | 1        
+| U7 | 2.54mm pin header | PH-2x4 Dual row, Right angle | 1 
+| U19 | OCMOS FET | PS7200K-1A        | 1   
+| U24 | Switching Voltage Regulators | TLV61046ADBVR | 1 
+| M1 | Link Sprite Jpeg color camera    |             | 1        
+| P45 | PH connector | S2B-PH-SM4-TB(LF)(SN) | 1 
+| | LiPo battery | | 1 
 |===
+
+=== License
+This project is released under a {License} License.
 
