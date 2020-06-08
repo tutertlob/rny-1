@@ -1,28 +1,35 @@
-package com.github.tutertlob.mailboxnotifier.sensorsystemreceiver;
+package com.github.tutertlob.iot_applications.sensorsystemreceiver;
 
-import java.io.BufferedOutputStream;
-import java.io.FileNotFoundException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.Arrays;
 import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.BufferedOutputStream;
+import com.github.tutertlob.iotgateway.Transceiver;
+import com.github.tutertlob.iotgateway.Transceiver.PacketHandler;
+import com.github.tutertlob.iotgateway.DatabaseUtil;
+import com.github.tutertlob.iotgateway.DatabaseUtilFactory;
+import com.github.tutertlob.iotgateway.AppProperties;
+import com.github.tutertlob.iotgateway.SensorEntity;
+import com.github.tutertlob.iotgateway.SensorRecord;
+import com.github.tutertlob.subghz.SubGHzFrame;
+import com.github.tutertlob.subghz.PacketImplementation;
+import com.github.tutertlob.subghz.DataPacketInterface;
+import com.github.tutertlob.subghz.NoticePacketInterface;
 
-import com.github.tutertlob.im920wireless.packet.DataPacket;
-import com.github.tutertlob.im920wireless.packet.Im920Packet;
-import com.github.tutertlob.im920wireless.packet.NoticePacket;
-
-class JpegImageReassembler implements Transceiver.PacketHandler {
+public class JpegImageReassembler implements PacketHandler {
 
 	private static final Logger logger = Logger.getLogger(JpegImageReassembler.class.getName());
 
 	private State state = State.END;
 
-	private enum State {
+	private static enum State {
 		PROCESSING, END;
 	}
 
@@ -32,24 +39,29 @@ class JpegImageReassembler implements Transceiver.PacketHandler {
 
 	private static final String JPEG_EXT = ".jpg";
 
-	private BufferedOutputStream jpegOStream;
+	private SubGHzFrame lastEvent;
 
 	private Path path;
 
-	private NoticePacket lastEvent;
+	private BufferedOutputStream jpegOStream;
+
+	public JpegImageReassembler() {
+
+	}
 
 	@Override
-	public void handle(Im920Packet packet) {
-		if (packet instanceof NoticePacket) {
-			lastEvent = (NoticePacket) packet;
+	public void handle(SubGHzFrame frame) {
+		PacketImplementation packet = frame.getPacket();
+		if (packet instanceof NoticePacketInterface) {
+			lastEvent = frame;
 			return;
 		}
 
-		if (!(packet instanceof DataPacket)) {
+		if (!(packet instanceof DataPacketInterface)) {
 			return;
 		}
 
-		DataPacket data = (DataPacket) packet;
+		DataPacketInterface data = (DataPacketInterface) packet;
 		byte[] jpegChoppedData = data.getData();
 
 		if (state == State.END) {
@@ -94,6 +106,7 @@ class JpegImageReassembler implements Transceiver.PacketHandler {
 					jpegOStream = null;
 					postJpegFile(path);
 					state = State.END;
+					lastEvent = null;
 					if (!Arrays.equals(EOI, eoi))
 						throw new IllegalStateException(
 								"Reached to the end of fragmented packets seriese although the end of jpeg chunk data never detected.");
@@ -109,7 +122,26 @@ class JpegImageReassembler implements Transceiver.PacketHandler {
 
 	private void postJpegFile(Path path) {
 		logger.info("posting jpeg image.");
+		SubGHzFrame frame = lastEvent;
+
+		PacketImplementation packet = frame.getPacket();
+		NoticePacketInterface notice = (NoticePacketInterface) packet;
+		String event = notice.getNotice();
+
+		JpegImageRecord data = new JpegImageRecord(event, path.toString());
+
+		SensorEntity sensor = null;
+		try {
+			sensor = SensorEntity.lookUpSensor(frame.getSenderAddr());
+		} catch (NullPointerException e) {
+			sensor = new SensorEntity().setAddr(frame.getSenderAddr()).setPanid(frame.getSenderExtAddr());
+		}
+
+		SensorRecord<JpegImageRecord> record = new SensorRecord<>(sensor, data)
+				.setRssi(Integer.valueOf(frame.getRssi())).setPacketType(packet.getPacketType().toString())
+				.setContentType("mailboxnotifier;application/json;image/jpeg");
+
 		DatabaseUtil db = DatabaseUtilFactory.getDatabaseUtil();
-		db.insertImageRecord(lastEvent, path);
+		db.insertSensorRecord(record);
 	}
 }

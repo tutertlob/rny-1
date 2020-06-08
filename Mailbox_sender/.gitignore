@@ -1,0 +1,7 @@
+.vscode
+*.HEX
+*.abs
+*.bin
+*.map
+_prn/
+obj/
