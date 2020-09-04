@@ -23,7 +23,7 @@
   "dependencies": {
     "config": "*",
     "moment": "^2.20.1",
-    "mongodb": "^2.2.34",
+    "mongodb": "^3.6.1",
     "node-rest-client": "^3.1.0"
   }
 }
